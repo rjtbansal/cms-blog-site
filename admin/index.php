@@ -163,23 +163,55 @@
                 </div>
                 <!-- /.row -->
 
+                <?php
+                        /*grabbing draft posts, unapproved comments, subscriber users*/
+
+                        $draft_posts_count_query="SELECT * FROM posts WHERE post_status='draft'";
+                        $draft_posts_count_query_result=mysqli_query($connection,$draft_posts_count_query);
+                        if(!$draft_posts_count_query_result){
+                             die("Post draft select query failed ".mysqli_error($connection));
+                        }
+                        $draft_posts_count=mysqli_num_rows($draft_posts_count_query_result);
+
+
+                        $unapproved_comments_count_query="SELECT * FROM comments WHERE comment_status='unapproved'";
+                        $unapproved_comments_count_query_result=mysqli_query($connection,$unapproved_comments_count_query);
+                        if(!$unapproved_comments_count_query_result){
+                                die("Unapproved comments select query failed ".mysqli_error($connection));
+                        }
+                        $unapproved_comments_count=mysqli_num_rows($unapproved_comments_count_query_result);
+
+                        $subscribers_count_query="SELECT * FROM users WHERE user_role='subscriber'";
+                        $subscribers_count_query_result=mysqli_query($connection,$subscribers_count_query);
+                        if(!$subscribers_count_query_result){
+                            die("Subscribers select query failed ".mysqli_error($connection));
+                        }
+                        $subscribers_count=mysqli_num_rows($subscribers_count_query_result);
+                ?>
+
                 <div class="row">
                     <script type="text/javascript">
                         google.charts.load('current', {'packages':['bar']});
                         google.charts.setOnLoadCallback(drawChart);
                         function drawChart() {
                             var data = google.visualization.arrayToDataTable([
-                                ['Year', 'Sales', 'Expenses', 'Profit'],
-                                ['2014', 1000, 400, 200],
-                                ['2015', 1170, 460, 250],
-                                ['2016', 660, 1120, 300],
-                                ['2017', 1030, 540, 350]
-                            ]);
+                                ['Data', 'Count'],
+
+                                <?php
+                                    $cms_params=['posts','draft posts','comments','unapproved comments','users', 'suscribers','categories'];
+                                    $cms_params_count=[$posts_count,$draft_posts_count,$comments_count,$unapproved_comments_count,$users_count, $subscribers_count,$categories_count];
+
+                                    for($i=0;$i<count($cms_params);$i++){
+                                        echo "['{$cms_params[$i]}',{$cms_params_count[$i]}],";
+                                    }
+
+                                 ?>
+                            ])
 
                             var options = {
                                 chart: {
-                                    title: 'Company Performance',
-                                    subtitle: 'Sales, Expenses, and Profit: 2014-2017',
+                                    title: '',
+                                    subtitle: '',
                                 }
                             };
 
@@ -189,7 +221,7 @@
                         }
                     </script>
 
-                    <div id="columnchart_material" style="width: 900px; height: 500px;"></div>
+                    <div id="columnchart_material" style="width: auto; height: 500px;"></div>
                 </div>
 
             </div>
