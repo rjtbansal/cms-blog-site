@@ -1,5 +1,5 @@
 <?php
-
+    session_start();
     include "db.php";
 
     if(isset($_POST['login'])){
@@ -18,7 +18,18 @@
         /*see if a row is returned*/
         if(mysqli_num_rows($validate_user_credentials_query_result)!= 0){
 
+            while($row=mysqli_fetch_assoc($validate_user_credentials_query_result)){
+                $username=$row['username'];
+                $user_role=$row['user_role'];
+            }
+            $_SESSION['username']=$username;
+            $_SESSION['user_role']=$user_role;
+
+            if($_SESSION['user_role'] ==='admin'){
             header("location: ../admin/index.php");
+            } else{
+                header("location:../index.php");
+            }
 
         }
         else{
