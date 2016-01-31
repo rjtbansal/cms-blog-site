@@ -25,8 +25,10 @@
             $_SESSION['username']=$username;
             $_SESSION['user_role']=$user_role;
 
+
+
             if($_SESSION['user_role'] ==='admin'){
-            header("location: ../admin/index.php");
+                header("location: ../admin/index.php");
             } else{
                 header("location:../index.php");
             }
