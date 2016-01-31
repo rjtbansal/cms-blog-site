@@ -60,7 +60,7 @@
                 </ul>
             </li>
             <li class="active">
-                <a href="blank-page.html"><i class="fa fa-fw fa-user"></i>Your Profile</a>
+                <a href="../admin/profile.php"><i class="fa fa-fw fa-user"></i>Your Profile</a>
             </li>
         </ul>
     </div>
