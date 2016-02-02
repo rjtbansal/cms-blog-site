@@ -1,3 +1,5 @@
+
+
 <?php
     if(isset($_GET['post_id'])) {
         $post_id=$_GET['post_id'];
@@ -60,7 +62,9 @@
             die("Update post query failed");
         }
 
-        header("Location: ./posts.php");
+        echo "<p class='bg-success'> Post updated successfully. <a href='../post.php?p_id=$post_id'>View your post</a> &nbsp;
+                 <a href='posts.php'>Edit posts</a></p>";
+
 
 
     }
@@ -102,7 +106,17 @@
 
     <div class="form-group">
         <label for="post_status">Post Status</label>
-        <input value="<?php echo $post_status ?>" type="text" name="post_status" class="form-control">
+        <select name="post_status" class="form-control">
+            <?php if($post_status === 'published'){
+                echo "<option selected>published</option>
+            <option>draft</option>";
+            }else{
+                echo "<option selected>draft</option>
+            <option>published</option>";
+            }
+
+            ?>
+        </select>
     </div>
 
     <div class="form-group">

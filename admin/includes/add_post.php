@@ -61,7 +61,10 @@
 
         <div class="form-group">
             <label for="post_status">Post Status</label>
-            <input type="text" name="post_status" class="form-control">
+                <select name="post_status" class="form-control">
+                    <option selected>published</option>
+                    <option>draft</option>
+                </select>
         </div>
 
         <div class="form-group">

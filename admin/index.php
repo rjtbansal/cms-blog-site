@@ -165,6 +165,12 @@
 
                 <?php
                         /*grabbing draft posts, unapproved comments, subscriber users*/
+                        $published_posts_count_query="SELECT * FROM posts WHERE post_status='published'";
+                        $published_posts_count_query_result=mysqli_query($connection,$published_posts_count_query);
+                        if(!$published_posts_count_query_result){
+                            die("Post draft select query failed ".mysqli_error($connection));
+                        }
+                         $published_posts_count=mysqli_num_rows($published_posts_count_query_result);
 
                         $draft_posts_count_query="SELECT * FROM posts WHERE post_status='draft'";
                         $draft_posts_count_query_result=mysqli_query($connection,$draft_posts_count_query);
@@ -172,6 +178,13 @@
                              die("Post draft select query failed ".mysqli_error($connection));
                         }
                         $draft_posts_count=mysqli_num_rows($draft_posts_count_query_result);
+
+                        $approved_comments_count_query="SELECT * FROM comments WHERE comment_status='approved'";
+                        $approved_comments_count_query_result=mysqli_query($connection,$approved_comments_count_query);
+                        if(!$approved_comments_count_query_result){
+                            die("Approved comments select query failed ".mysqli_error($connection));
+                        }
+                        $approved_comments_count=mysqli_num_rows($approved_comments_count_query_result);
 
 
                         $unapproved_comments_count_query="SELECT * FROM comments WHERE comment_status='unapproved'";
@@ -187,6 +200,13 @@
                             die("Subscribers select query failed ".mysqli_error($connection));
                         }
                         $subscribers_count=mysqli_num_rows($subscribers_count_query_result);
+
+                        $admin_count_query="SELECT * FROM users WHERE user_role='admin'";
+                        $admin_count_query_result=mysqli_query($connection,$admin_count_query);
+                        if(!$admin_count_query_result){
+                            die("Admin select query failed ".mysqli_error($connection));
+                        }
+                         $admin_count=mysqli_num_rows($admin_count_query_result);
                 ?>
 
                 <div class="row">
@@ -198,8 +218,8 @@
                                 ['Data', 'Count'],
 
                                 <?php
-                                    $cms_params=['posts','draft posts','comments','unapproved comments','users', 'suscribers','categories'];
-                                    $cms_params_count=[$posts_count,$draft_posts_count,$comments_count,$unapproved_comments_count,$users_count, $subscribers_count,$categories_count];
+                                    $cms_params=['total posts', 'published posts','draft posts','total comments','approved comments','unapproved comments','total users', 'suscribers', 'admin','categories'];
+                                    $cms_params_count=[$posts_count, $published_posts_count,$draft_posts_count,$comments_count,$approved_comments_count,$unapproved_comments_count,$users_count, $subscribers_count, $admin_count,$categories_count];
 
                                     for($i=0;$i<count($cms_params);$i++){
                                         echo "['{$cms_params[$i]}',{$cms_params_count[$i]}],";

@@ -19,15 +19,13 @@ if(isset($_POST['addUser'])){
         die("Insertion query failed" .mysqli_error($connection));
     }
 
-    header("location:./users.php");
-
-
+    echo "<p class='bg-success'> User added successfully. <a href='users.php'>View user table</a> </p>";
 
 }
 ?>
 
 <form method="post" action="" enctype="multipart/form-data">
-
+    <div id="userNotify"></div>
     <div class="form-group">
         <label for="username">Username</label>
         <input type="text" name="username" class="form-control">

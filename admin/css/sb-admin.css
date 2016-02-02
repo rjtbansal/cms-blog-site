@@ -4,6 +4,11 @@
  * For details, see http://www.apache.org/licenses/LICENSE-2.0.
  */
 
+/*my styles*/
+
+.clear{
+    clear: both;
+}
 /* Global Styles */
 
 body {

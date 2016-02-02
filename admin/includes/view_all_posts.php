@@ -1,4 +1,20 @@
+
+<form method="post">
+    <div id="optionsContainer" class="col-xs-4">
+        <select class="form-control">
+            <option>Select Options</option>
+            <option>Publish</option>
+            <option>Draft</option>
+            <option>Delete</option>
+        </select>
+    </div>
+    <div class="col-xs-4">
+        <input type="submit" name="submit" class="btn btn-success" value="Apply">
+        <a href="posts.php?source=add_post" class="btn btn-primary">Add New</a>
+    </div>
+    <div class="clear"></div>
 <table class="table table-bordered table-hover">
+
     <thead>
     <tr>
         <th>Post Id</th>
@@ -68,3 +84,5 @@
 
     </tbody>
 </table>
+
+</form>

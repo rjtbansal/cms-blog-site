@@ -42,7 +42,7 @@ if(isset($_POST['editUser'])){
         die("Update user query failed".mysqli_error($connection));
     }
 
-    header("location:./users.php");
+    echo "<p class='bg-success'> User updated successfully. <a href='users.php'>View user table</a> </p>";
 
 
 
