@@ -1,11 +1,34 @@
+<?php
+    if(isset($_POST['checkboxes'])){
+        $checkboxes=array();
+        $checkboxes=$_POST['checkboxes'];
+        foreach($checkboxes as $checkbox){
+            $selectedOption=$_POST['selectedOption'];
+            if($selectedOption === 'published' || $selectedOption === 'draft'){
+                $updateQuery= "UPDATE posts SET post_status='$selectedOption' WHERE post_id={$checkbox}";
+                $updateQueryResult=mysqli_query($connection, $updateQuery);
+                if(! $updateQueryResult){
+                    die("update failed ". mysqli_error($connection));
+                }
+            }
+            else{
+                $deleteQuery="DELETE FROM posts WHERE post_id={$checkbox}";
+                $deleteQueryResult=mysqli_query($connection, $deleteQuery);
+                if(! $deleteQueryResult){
+                    die("delete failed ". mysqli_error($connection));
+                }
+            }
+        }
+    }
+?>
 
 <form method="post">
     <div id="optionsContainer" class="col-xs-4">
-        <select class="form-control">
+        <select class="form-control" name="selectedOption">
             <option>Select Options</option>
-            <option>Publish</option>
-            <option>Draft</option>
-            <option>Delete</option>
+            <option value="published">Publish</option>
+            <option value="draft">Draft</option>
+            <option value="delete">Delete</option>
         </select>
     </div>
     <div class="col-xs-4">
@@ -17,6 +40,7 @@
 
     <thead>
     <tr>
+        <th><input type="checkbox" name="selectAllCheckboxes" id="selectAllCheckboxes" > </th>
         <th>Post Id</th>
         <th>Author</th>
         <th>Title</th>
@@ -26,6 +50,9 @@
         <th>Tags</th>
         <th>Comment Count</th>
         <th>Date</th>
+        <th>View Post</th>
+        <th>Edit Post</th>
+        <th>Delete Post</th>
     </tr>
     </thead>
     <tbody>
@@ -43,6 +70,7 @@
         $post_comment_count=$row['post_comment_count'];
         $post_date=$row['post_date'];
         echo "<tr>";
+        echo "<td><input type='checkbox' class='checkboxes' name='checkboxes[]' value={$post_id}></td>";
         echo "<td>{$post_id}</td>";
         echo "<td>{$post_author}</td>";
         echo "<td>{$post_title}</td>";
@@ -61,6 +89,7 @@
         echo "<td><img src='../images/$post_image' width='100px' height='100px'></td>";
         echo "<td>{$post_tags}</td> <td>{$post_comment_count}</td>";
         echo "<td>{$post_date}</td>";
+        echo "<td><a href='../post.php?p_id={$post_id}'>View Post</a> </td>";
         echo "<td><a href='posts.php?source=edit_post&post_id={$post_id}'>Edit</a></td>";
         echo "<td><a href='posts.php?delete={$post_id}'>Delete</a></td>";
         echo "</tr>";

@@ -15,19 +15,20 @@
             <?php
 
             if(isset($_GET['p_id'])) {
-                $post_id=$_GET['p_id'];
-            }
-            $postsQuery="SELECT * FROM posts WHERE post_id={$post_id}";
-            $resultFromPostsQuery=mysqli_query($connection, $postsQuery);
-            while($row = mysqli_fetch_assoc($resultFromPostsQuery)){
-                $post_title=$row['post_title'];
-                $post_author=$row['post_author'];
-                $post_date=$row['post_date'];
-                $post_image=$row['post_image'];
-                $post_content=$row['post_content'];
-                $post_tags=$row['post_tags'];
-                $post_comment_count=$row['post_comment_count'];
-                $post_status=$row['post_status'];
+                $post_id = $_GET['p_id'];
+
+                $postsQuery = "SELECT * FROM posts WHERE post_id={$post_id}";
+                $resultFromPostsQuery = mysqli_query($connection, $postsQuery);
+                while ($row = mysqli_fetch_assoc($resultFromPostsQuery)) {
+                    $post_title = $row['post_title'];
+                    $post_author = $row['post_author'];
+                    $post_date = $row['post_date'];
+                    $post_image = $row['post_image'];
+                    $post_content = $row['post_content'];
+                    $post_tags = $row['post_tags'];
+                    $post_comment_count = $row['post_comment_count'];
+                    $post_status = $row['post_status'];
+
 
                 ?>
 
@@ -50,7 +51,7 @@
                 <p><?php echo $post_content;  ?></p>
                 <hr>
 
-            <?php } ?>
+            <?php }} ?>
 
         </div>
 
@@ -74,6 +75,8 @@
             $comment_email = $_POST['comment_email'];
             $comment_content = $_POST['comment_content'];
 
+            if(!empty($comment_author) && !empty($comment_email) && !empty($comment_content)){
+
             $commentInsertQuery = "INSERT into comments (comment_post_id, comment_author, comment_email,comment_content,comment_status,comment_date)";
             $commentInsertQuery .= "VALUES($comment_post_id,'{$comment_author}','{$comment_email}','{$comment_content}','unapproved',now())";
 
@@ -88,6 +91,10 @@
             $commentCountQueryResult = mysqli_query($connection, $commentCountQuery);
             if (!$commentCountQueryResult) {
                 die("Update to comment count failed " . mysqli_error($connection));
+            }
+
+            }else{
+                echo "<script>alert('Fields cannot be empty');</script>";
             }
 
         }

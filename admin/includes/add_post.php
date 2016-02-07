@@ -21,7 +21,10 @@
                 die("Insertion query failed" .mysqli_error($connection));
             }
 
+            $post_id=mysqli_insert_id($connection);
 
+            echo "<p class='bg-success'> Post added successfully. <a href='../post.php?p_id=$post_id'>View your post</a> &nbsp;
+                 <a href='posts.php'>Edit posts</a></p>";
 
         }
     ?>

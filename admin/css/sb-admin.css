@@ -6,6 +6,12 @@
 
 /*my styles*/
 
+/*view all posts section: spacing between dropdown options and the table*/
+#optionsContainer{
+    padding-bottom: 10px;
+    padding-left: 0;
+}
+
 .clear{
     clear: both;
 }
