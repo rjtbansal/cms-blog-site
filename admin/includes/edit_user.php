@@ -31,8 +31,18 @@ if(isset($_POST['editUser'])){
 
     /*move_uploaded_file($post_image_temp, "../images/$post_image");*/
 
+    $getSaltQuery="SELECT salt FROM users";
+    $getSaltQueryResult=mysqli_query($connection,$getSaltQuery);
+    if(!$getSaltQueryResult){
+        die("Query failed ".mysqli_error($connection));
+    }
+
+    $row=mysqli_fetch_array($getSaltQueryResult);
+    $salt=$row['salt'];
+    $encypted_pwd=crypt($user_pwd,$salt);
+
     $updateEditUserQuery="UPDATE users SET username='{$username}', ";
-    $updateEditUserQuery.="user_pwd='{$user_pwd}', ";
+    $updateEditUserQuery.="user_pwd='{$encypted_pwd}', ";
     $updateEditUserQuery.="user_firstname='{$user_firstname}', ";
     $updateEditUserQuery.="user_lastname='{$user_lastname}', ";
     $updateEditUserQuery.="user_email='{$user_email}', ";

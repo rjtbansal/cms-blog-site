@@ -32,7 +32,7 @@
         echo "<td><a href='users.php?switch_to_admin={$user_id}'>Admin</a></td>";
         echo "<td><a href='users.php?switch_to_subscriber={$user_id}'>Subscriber</a></td>";
         echo "<td><a href='users.php?source=edit_user&edit_user_id={$user_id}'>Edit</a></td>";
-        echo "<td><a href='users.php?delete={$user_id}'>Delete</a></td>";
+        echo "<td><a onclick='return confirmUserDelete()' href='users.php?delete={$user_id}'>Delete</a></td>";
         echo "</tr>";
     }
 

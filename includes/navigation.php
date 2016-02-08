@@ -23,6 +23,8 @@
                     }
             ?>
                 <li><a href="/admin/index.php">Admin</a> </li>
+                <li><a href="/registration.php">Register</a> </li>
+
 
                 <?php
                 session_start();
@@ -34,7 +36,6 @@
                             echo "<li><a href='admin/posts.php?source=edit_post&post_id={$post_id}'>Edit Post</a> </li>";
                         }
                     }
-
 
                 ?>
             </ul>

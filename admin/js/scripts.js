@@ -22,3 +22,12 @@ $(document).ready(function(){
 
 
 });
+
+function confirmPostDelete(){
+
+    return confirm("Are you sure you want to delete this post");
+}
+
+function confirmUserDelete(){
+    return confirm("Are you sure you want to delete this user");
+}

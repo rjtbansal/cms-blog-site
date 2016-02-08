@@ -91,7 +91,7 @@
         echo "<td>{$post_date}</td>";
         echo "<td><a href='../post.php?p_id={$post_id}'>View Post</a> </td>";
         echo "<td><a href='posts.php?source=edit_post&post_id={$post_id}'>Edit</a></td>";
-        echo "<td><a href='posts.php?delete={$post_id}'>Delete</a></td>";
+        echo "<td><a onclick='return confirmPostDelete()' href='posts.php?delete={$post_id}'>Delete</a></td>";
         echo "</tr>";
     }
 
@@ -115,3 +115,4 @@
 </table>
 
 </form>
+
