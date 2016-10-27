@@ -13,31 +13,10 @@
             <div class="col-md-8">
 
                 <?php
-
-                $posts_per_page= 5;
-
-                if(isset($_GET['page'])){
-                    $page=$_GET['page'];
-                }else{
-                    $page='';
-                }
-
-                if($page==="" || $page===1){
-                    $page_1=0;
-                }else{
-                    $page_1=($page*$posts_per_page)-$posts_per_page;
-                }
-
-
-                $postsCountQuery="SELECT * FROM posts WHERE post_status='published'";
-                $resultFromPostsCountQuery=mysqli_query($connection, $postsCountQuery);
-                $posts_count=mysqli_num_rows($resultFromPostsCountQuery);
-                $page_count=ceil($posts_count/5); //we want to display 5 posts per page
-
-                $postsQuery="SELECT * FROM posts WHERE post_status='published' LIMIT $page_1, $posts_per_page";
+                $postsQuery="SELECT * FROM posts WHERE post_status='published'";
                 $resultFromPostsQuery=mysqli_query($connection, $postsQuery);
+
                 $rowsReturned=mysqli_num_rows($resultFromPostsQuery);
-                
                 if($rowsReturned<=0){
                     echo "<h1 class='text-center'>No Posts Found</h1>";
                 }
@@ -56,6 +35,7 @@
 
 
                 ?>
+
 
                 <!-- First Blog Post -->
                 <h2>
@@ -88,22 +68,7 @@
         <!-- /.row -->
 
         <hr>
-        <ul class='pager'>
-            <?php
-                for($i=1;$i<=$page_count;$i++){
-                    if($i==$page){
-                        echo "<li><a class='active' href='index.php?page={$i}'>{$i}</a></li>";
-                    }
-                    else if($page==''){
-                        $page=1;
-                        echo "<li><a class='active' href='index.php?page={$i}'>{$i}</a></li>";
-                    }
-                    else{
-                        echo "<li><a href='index.php?page={$i}'>{$i}</a></li>";
-                    }
-                }
-            ?>
-        </ul>
+
 <?php
     include "includes/footer.php";
 ?>
