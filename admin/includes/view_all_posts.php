@@ -11,12 +11,39 @@
                     die("update failed ". mysqli_error($connection));
                 }
             }
-            else{
+            else if($selectedOption === 'delete'){
                 $deleteQuery="DELETE FROM posts WHERE post_id={$checkbox}";
                 $deleteQueryResult=mysqli_query($connection, $deleteQuery);
                 if(! $deleteQueryResult){
                     die("delete failed ". mysqli_error($connection));
                 }
+            }
+            else{ //its clone
+                $cloneQuery="SELECT * from posts WHERE post_id='{$checkbox}'";
+                $cloneQueryResult=mysqli_query($connection,$cloneQuery);
+                if(! $cloneQueryResult){
+                    die('Finding posts failed for clone '.mysqli_error($connection));
+                }
+                while($row=mysqli_fetch_array($cloneQueryResult)){
+                    $post_author=$row['post_author'];
+                    $post_title=$row['post_title'];
+                    $post_category_id=$row['post_category_id'];
+                    $post_status=$row['post_status'];
+                    $post_image=$row['post_image'];
+                    $post_tags=$row['post_tags'];
+                    $post_date=$row['post_date'];
+                    $post_content=$row['post_content'];
+                }
+
+            $addPostQuery= "INSERT into posts(post_category_id,post_title,post_author,post_date,post_image,post_content,post_tags,post_status)";
+            $addPostQuery.="VALUES({$post_category_id},'{$post_title}','{$post_author}',now(),'{$post_image}','{$post_content}','{$post_tags}','{$post_status}')";
+
+            $addPostQueryResult=mysqli_query($connection,$addPostQuery);
+
+            if(!$addPostQueryResult){
+                die("Insertion query failed" .mysqli_error($connection));
+            }
+
             }
         }
     }
@@ -28,6 +55,7 @@
             <option>Select Options</option>
             <option value="published">Publish</option>
             <option value="draft">Draft</option>
+            <option value="clone">Clone</option>
             <option value="delete">Delete</option>
         </select>
     </div>
