@@ -36,17 +36,13 @@
 
                 ?>
 
-                <h1 class="page-header">
-                    Page Heading
-                    <small>Secondary Text</small>
-                </h1>
 
                 <!-- First Blog Post -->
                 <h2>
                     <?php echo "<a href='post.php?p_id={$post_id}'>{$post_title}</a>"; ?>
                 </h2>
                 <p class="lead">
-                    by <?php echo "<a href='index.php'>{$post_author}</a>";  ?>
+                    by <?php echo "<a href='authorPosts.php?author={$post_author}&p_id={$post_id}'>{$post_author}</a>";  ?>
                 </p>
                 <p><span class="glyphicon glyphicon-time"></span><?php echo $post_date;  ?></p>
                 <hr>
